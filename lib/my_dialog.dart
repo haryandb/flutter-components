@@ -54,12 +54,18 @@ class MyDialog {
       BuildContext context, String judul, String text) {
     return Text.rich(
       TextSpan(
-        text: "${Helpers.wrapText(text)} ",
+        style: const TextStyle(
+          fontSize: 16,
+        ),
+        text: "${wrapText(text)}",
         // style: const TextStyle(fontWeight: FontWeight.bold),
         children: [
-          if (Helpers.wrapText(text).length >= 100)
+          if (wrapText(text).length >= 100)
             TextSpan(
-              style: const TextStyle(color: Colors.blue),
+              style: const TextStyle(
+                color: Colors.blue,
+                fontSize: 16,
+              ),
               text: "... Selengkapnya",
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
@@ -68,9 +74,12 @@ class MyDialog {
                     builder: (BuildContext context) {
                       return SingleChildScrollView(
                         child: ListTile(
-                          title: Text(judul),
+                          title: Text(
+                            judul,
+                            style: const TextStyle(fontSize: 20),
+                          ),
                           subtitle: Padding(
-                            padding: const EdgeInsets.only(bottom: 15),
+                            padding: const EdgeInsets.only(bottom: 16),
                             child: SelectableText(
                               text,
                             ),
@@ -84,5 +93,15 @@ class MyDialog {
         ],
       ),
     );
+  }
+
+  static String wrapText(String? deskripsi) {
+    if (deskripsi == null) {
+      return "";
+    }
+    if (deskripsi.length <= 100) {
+      return deskripsi;
+    }
+    return deskripsi.substring(0, 100);
   }
 }
