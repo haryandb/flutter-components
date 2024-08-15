@@ -1,3 +1,5 @@
+import 'package:components/helpers.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class MyDialog {
@@ -45,6 +47,42 @@ class MyDialog {
           ],
         );
       },
+    );
+  }
+
+  static textWrappedBottomSheet(
+      BuildContext context, String judul, String text) {
+    return Text.rich(
+      TextSpan(
+        text: "${Helpers.wrapText(text)} ",
+        // style: const TextStyle(fontWeight: FontWeight.bold),
+        children: [
+          if (Helpers.wrapText(text).length >= 100)
+            TextSpan(
+              style: const TextStyle(color: Colors.blue),
+              text: "... Selengkapnya",
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SingleChildScrollView(
+                        child: ListTile(
+                          title: Text(judul),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(bottom: 15),
+                            child: SelectableText(
+                              text,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+            ),
+        ],
+      ),
     );
   }
 }

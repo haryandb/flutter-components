@@ -14,4 +14,14 @@ class Helpers {
       return "Selamat Malam!";
     }
   }
+
+  static String wrapText(String? deskripsi) {
+    if (deskripsi == null) {
+      return "";
+    }
+    if (deskripsi.length <= 100) {
+      return deskripsi;
+    }
+    return deskripsi.substring(0, 100);
+  }
 }
