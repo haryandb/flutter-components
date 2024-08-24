@@ -30,19 +30,21 @@ class MyDialog {
     );
   }
 
-  static showPeringantanDialog(BuildContext context, String pesan) {
+  static showPeringantanDialog(
+    BuildContext context,
+    String pesan,
+    void Function()? onPressOk,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Peringatan'),
+          title: const Text('Peringatan'),
           content: Text(pesan),
           actions: <Widget>[
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
+              onPressed: onPressOk,
+              child: const Text('OK'),
             ),
           ],
         );
